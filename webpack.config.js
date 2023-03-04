@@ -12,10 +12,38 @@ module.exports = {
 
   // 配置
   module: {
+    // 规则
     rules: [
       {
         test: /\.vue$/,
         loader: 'vue-loader'
+      },
+      {
+        test: /\.css$/,
+        use: [
+          'style-loader',
+          'css-loader'
+        ]
+      },
+      {
+        test: /\.styl$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          'stylus-loader'
+        ]
+      },
+      {
+        test: /\.(gif|jpg|jpeg|png|svg)$/,
+        use: [
+          {
+            loader: 'url-loader', // 可以将图片转为 base64代码
+            options: { // 配置
+              limit: 1024, // 小于1024转为base64
+              name: '[name]-aaa.[ext]'
+            }
+          }
+        ]
       }
     ]
   }
