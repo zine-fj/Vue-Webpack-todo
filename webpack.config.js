@@ -1,6 +1,7 @@
 const path = require("path");
 const HTMLPlugin = require("html-webpack-plugin"); // 打包页面
 const webpack = require("webpack");
+const ExtractPlugin = require("extract-text-webpack-plugin");
 
 const isDev = process.env.NODE_ENV === "development";
 
@@ -11,7 +12,7 @@ const config = {
 
   // 出口
   output: {
-    filename: "bundle.js",
+    filename: "bundle.[hash:8].js",
     path: path.join(__dirname, "dist"),
   },
 
@@ -26,24 +27,6 @@ const config = {
       {
         test: /\.jsx$/,
         loader: "babel-loader",
-      },
-      {
-        test: /\.css$/,
-        use: ["style-loader", "css-loader"],
-      },
-      {
-        test: /\.styl$/,
-        use: [
-          "style-loader",
-          "css-loader",
-          {
-            loader: "postcss-loader",
-            options: {
-              sourceMap: true,
-            },
-          },
-          "stylus-loader",
-        ],
       },
       {
         test: /\.(gif|jpg|jpeg|png|svg)$/,
@@ -74,7 +57,21 @@ const config = {
 
 if (isDev) {
   config.devtool = "#cheap-module-eval-source-map"; // 查找问题方便，不是编译后的代码
-  (config.devServer = {
+  config.module.rules.push({
+    test: /\.styl$/,
+    use: [
+      "style-loader",
+      "css-loader",
+      {
+        loader: "postcss-loader",
+        options: {
+          sourceMap: true,
+        },
+      },
+      "stylus-loader",
+    ],
+  });
+  config.devServer = {
     port: "8000",
     host: "0.0.0.0", // 可用两种方式查看
     overlay: {
@@ -85,11 +82,33 @@ if (isDev) {
 
     // historyFallback: {}
     // open: true
-  }),
-    config.plugins.push(
-      new webpack.HotModuleReplacementPlugin(),
-      new webpack.NoEmitOnErrorsPlugin()
-    );
+  };
+  config.plugins.push(
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoEmitOnErrorsPlugin()
+  );
+} else {
+  config.output.filename = '[name].[chunkhash:8].js'
+  config.module.rules.push({
+    test: /\.styl$/,
+    use: ExtractPlugin.extract({
+      fallback: 'style-loader', // 将css代码包裹在js中
+      use: [
+        "css-loader",
+        {
+          loader: "postcss-loader",
+          options: {
+            sourceMap: true,
+          },
+        },
+        "stylus-loader",
+      ]
+    }),
+  });
+  // 输出的名字
+  config.plugins.push(
+    new ExtractPlugin('styles.[contentHash:8].css')
+  )
 }
 
 module.exports = config;
