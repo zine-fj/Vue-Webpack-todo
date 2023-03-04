@@ -88,11 +88,17 @@ if (isDev) {
     new webpack.NoEmitOnErrorsPlugin()
   );
 } else {
-  config.output.filename = '[name].[chunkhash:8].js'
+  // 类库文件单独打包（因为比较静态）
+  config.entry = {
+    app: path.join(__dirname, "src/index.js"),
+    vendor: ["vue"],
+  };
+  // hash 所有打包后的hash值一样；chunkhash 打包后的hash值不一样
+  config.output.filename = "[name].[chunkhash:8].js";
   config.module.rules.push({
     test: /\.styl$/,
     use: ExtractPlugin.extract({
-      fallback: 'style-loader', // 将css代码包裹在js中
+      fallback: "style-loader", // 将css代码包裹在js中
       use: [
         "css-loader",
         {
@@ -102,13 +108,21 @@ if (isDev) {
           },
         },
         "stylus-loader",
-      ]
+      ],
     }),
   });
-  // 输出的名字
   config.plugins.push(
-    new ExtractPlugin('styles.[contentHash:8].css')
-  )
+    // 输出的名字
+    new ExtractPlugin("styles.[contentHash:8].css"),
+    // 指定打包文件
+    new webpack.optimize.CommonsChunkPlugin({
+      name: "vendor",
+    }),
+    // 单独打包webpack
+    new webpack.optimize.CommonsChunkPlugin({
+      name: "runtime",
+    })
+  );
 }
 
 module.exports = config;
