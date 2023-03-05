@@ -17,3 +17,33 @@
 
 ##### 生产环境
 - 启动项目打包：`npm run build`
+
+
+#### 包的作用
+| 包名称 | 作用 |
+| --- | --- |
+| vue | vue项目 |
+| autoprefixer | css添加浏览器前缀 |
+| babel-core | 配置 `.babelrc` 相关 |
+| babel-helper-vue-jsx-merge-props | 无实际意义，配置`babelrc` 时的 WARN |
+| babel-loader | 配置 `.babelrc` 相关，jsx的loader |
+| babel-plugin-syntax-jsx | 无实际意义，配置`babelrc` 时的 WARN |
+| babel-plugin-transform-vue-jsx | `.babelrc` 的loader |
+| babel-preset-env | `.babelrc` 的loader |
+| cross-env | 配置环境 |
+| css-loader | css的解析 |
+| extract-text-webpack-plugin | 与css相关 |
+| file-loader | 文件路径的loader |
+| html-webpack-plugin | 打包页面 |
+| postcss-loader | 通过一系列组件 优化css代码 |
+| style-loader | 样式的loader |
+| stylus | stylus |
+| stylus-loader | stylus的loader |
+| url-loader | 文件路径的loader |
+| vue-loader | vue的loader |
+| vue-style-loader | 使css热刷新 |
+| vue-template-compiler | vue相关 |
+| webpack | webpack |
+| webpack-dev-server | webpack启动 |
+| webpack-merge | 合并不同的webpack配置 |
+| rimraf | 每次打包时删除之前打包结果 |

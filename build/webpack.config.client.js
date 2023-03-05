@@ -39,8 +39,15 @@ if (isDev) {
         {
           test: /\.styl$/,
           use: [
-            "style-loader",
-            "css-loader",
+            "vue-style-loader",
+            'css-loader',
+            // { // 也可以用cssmodule
+            //   loader: 'css-loader',
+            //   options: {
+            //     module: true,
+            //     localIdentName: '[path]-[name]-[hash:base64:5]', // css类名
+            //   }
+            // },
             {
               loader: "postcss-loader",
               options: {
@@ -74,7 +81,7 @@ if (isDev) {
         {
           test: /\.styl$/,
           use: ExtractPlugin.extract({
-            fallback: "style-loader", // 将css代码包裹在js中
+            fallback: "vue-style-loader", // 将css代码包裹在js中
             use: [
               "css-loader",
               {

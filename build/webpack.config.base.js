@@ -1,6 +1,7 @@
 // 公用的 webpack 放在该文件里面
 
 const path = require("path");
+const createVueLoaderOptions = require('./vue-loader.config')
 
 const isDev = process.env.NODE_ENV === "development";
 
@@ -22,6 +23,7 @@ const config = {
       {
         test: /\.vue$/,
         loader: "vue-loader",
+        options: createVueLoaderOptions(isDev)
       },
       {
         test: /\.jsx$/,
