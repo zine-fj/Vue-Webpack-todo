@@ -12,7 +12,7 @@
 
 ##### 开发环境
 - 启动项目：`npm run dev`
-- 浏览器预览：__localhost:8888__
+- 浏览器预览：__localhost:8000__
 
 
 ##### 生产环境
@@ -25,6 +25,7 @@
 | vue | vue项目 |
 | autoprefixer | css添加浏览器前缀 |
 | babel-core | 配置 `.babelrc` 相关 |
+| babel-eslint | `eslint` 配置 |
 | babel-helper-vue-jsx-merge-props | 无实际意义，配置`babelrc` 时的 WARN |
 | babel-loader | 配置 `.babelrc` 相关，jsx的loader |
 | babel-plugin-syntax-jsx | 无实际意义，配置`babelrc` 时的 WARN |
@@ -32,9 +33,18 @@
 | babel-preset-env | `.babelrc` 的loader |
 | cross-env | 配置环境 |
 | css-loader | css的解析 |
+| eslint | `eslint` 配置 |
+| eslint-config-standard | `eslint` 配置，standard规范 |
+| eslint-loader | `eslint` 配置 |
+| eslint-plugin-html | `eslint` 配置 |
+| eslint-plugin-import | `eslint` 配置 |
+| eslint-plugin-node | `eslint` 配置 |
+| eslint-plugin-promise | `eslint` 配置 |
+| eslint-plugin-standard | `eslint` 配置，standard规范 |
 | extract-text-webpack-plugin | 与css相关 |
 | file-loader | 文件路径的loader |
 | html-webpack-plugin | 打包页面 |
+| husky | 合作开发，提交代码前校验 |
 | postcss-loader | 通过一系列组件 优化css代码 |
 | style-loader | 样式的loader |
 | stylus | stylus |
